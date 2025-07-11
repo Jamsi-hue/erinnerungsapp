@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Erinnerungs-App</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f8ff; padding: 20px; }
+  h1 { text-align: center; }
+  button {
+    font-size: 1.5em;
+    padding: 20px;
+    margin: 20px auto;
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button.done { background: #888; }
+</style>
+</head>
+<body>
+
+<h1>Erinnerung</h1>
+
+<button id="reminderBtn">Medikament A einnehmen</button>
+
+<script>
+const reminderBtn = document.getElementById('reminderBtn');
+
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'de-DE';
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert('Sprachfunktion wird nicht unterstützt');
+  }
+}
+
+reminderBtn.addEventListener('click', () => {
+  reminderBtn.classList.add('done');
+  reminderBtn.textContent = 'Erledigt ✓';
+  speak('Medikament A wurde eingenommen.');
+});
+
+// Beim Laden Erinnerung vorlesen
+window.onload = () => {
+  speak('Bitte Medikament A einnehmen.');
+};
+</script>
+
+</body>
+</html>
